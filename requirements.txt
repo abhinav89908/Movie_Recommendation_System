@@ -1,4 +1,4 @@
-fastapi==2.25.1
-uvicorn==0.18.3
-pickle
-pandas
+fastapi==0.71.0
+uvicorn==0.15.0
+pickle==0.7.5
+pandas==1.4.0

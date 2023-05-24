@@ -22,19 +22,19 @@ movies_dict = pickle.load(open('./model/movie_dict.pkl', 'rb'))
 
 movies = pd.DataFrame(movies_dict)
 # Get the total number of chunk files
-chunk_files = [file for file in os.listdir() if file.startswith('chunk_')]
+chunk_files = [file for file in os.listdir() if file.startswith('new_chunk_')]
 num_chunks = len(chunk_files)
 
 merged_data = []
 
 for i in range(num_chunks):
-    with open(f'chunk_{i}.pkl', 'rb') as file:
+    with open(f'new_chunk_{i}.pkl', 'rb') as file:
         chunk_data = pickle.load(file)
         merged_data.extend(chunk_data)
 
 similarity = merged_data
 #
-@app.get('/')
+@app.get('/predict')
 async def root():
     similar_movies = recommend('Avatar')
     return {

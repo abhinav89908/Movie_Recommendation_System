@@ -6,37 +6,38 @@ import os
 
 app = FastAPI()
 
-def recommend(movie):
-    movie_index = movies[movies['title']==movie].index[0]
-    distances = similarity[movie_index]
-    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x:x[1])[1:6]
+# def recommend(movie):
+#     movie_index = movies[movies['title']==movie].index[0]
+#     distances = similarity[movie_index]
+#     movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x:x[1])[1:6]
 
-    recommended_movies = []
-    for i in movies_list:
-    #     movie_id = i[0]
-        recommended_movies.append(movies.iloc[i[0]].title)
-    recommended_movies.append(movies.iloc[movie_index].title)
-    return recommended_movies;
+#     recommended_movies = []
+#     for i in movies_list:
+#     #     movie_id = i[0]
+#         recommended_movies.append(movies.iloc[i[0]].title)
+#     recommended_movies.append(movies.iloc[movie_index].title)
+#     return recommended_movies;
 
-movies_dict = pickle.load(open('./model/movie_dict.pkl', 'rb'))
+# movies_dict = pickle.load(open('./model/movie_dict.pkl', 'rb'))
 
-movies = pd.DataFrame(movies_dict)
-# Get the total number of chunk files
-chunk_files = [file for file in os.listdir() if file.startswith('new_chunk_')]
-num_chunks = len(chunk_files)
+# movies = pd.DataFrame(movies_dict)
+# # Get the total number of chunk files
+# chunk_files = [file for file in os.listdir() if file.startswith('new_chunk_')]
+# num_chunks = len(chunk_files)
 
-merged_data = []
+# merged_data = []
 
-for i in range(num_chunks):
-    with open(f'new_chunk_{i}.pkl', 'rb') as file:
-        chunk_data = pickle.load(file)
-        merged_data.extend(chunk_data)
+# for i in range(num_chunks):
+#     with open(f'new_chunk_{i}.pkl', 'rb') as file:
+#         chunk_data = pickle.load(file)
+#         merged_data.extend(chunk_data)
 
-similarity = merged_data
+# similarity = merged_data
 #
-@app.get('/predict')
+
+@app.get('/')
 async def root():
-    similar_movies = recommend('Avatar')
+#     similar_movies = recommend('Avatar')
     return {
-        "Similar": similar_movies
+        "Similar": "We are getting the data. That means api working successfully"
     }
